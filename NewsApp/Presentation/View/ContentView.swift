@@ -8,17 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel: ViewModel
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView {
+            VStack(spacing: 30) {
+                ForEach(viewModel.news, id: \.self) { news in
+                    VStack {
+                        Text(news.title)
+                    }
+                    Divider()
+                }
+            }
+            .padding()
+            .onAppear {
+                viewModel.getNews()
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

@@ -10,8 +10,11 @@ import SwiftUI
 @main
 struct NewsAppApp: App {
     var body: some Scene {
+        let repository = FetchNewsRepositoryImpl(fetchNewsDataSource: RemoteDataSourceImp())
+        let useCase = FetchNewsUseCaseImpl(repository: repository)
+        var viewModel = ViewModel(fetchUseCase: useCase)
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: viewModel)
         }
     }
 }
